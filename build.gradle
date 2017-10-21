@@ -12,6 +12,7 @@ repositories {
 }
 
 apply plugin: 'java'
+apply plugin: 'kotlin'
 
 compileJava {
     sourceCompatibility = 1.8
@@ -22,6 +23,7 @@ compileJava {
 dependencies {
     compile group: 'se.cygni.snakebot', name: 'snakebot-client', version: '0.1.18', changing: false
     compile group: 'se.cygni.snakebot', name: 'snakebot-client-util', version: '0.1.18', changing: false
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 }
 
 task run(type:JavaExec) {
@@ -31,4 +33,23 @@ task run(type:JavaExec) {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '3.1'
+}
+buildscript {
+    ext.kotlin_version = '1.1.51'
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
